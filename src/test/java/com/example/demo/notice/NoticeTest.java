@@ -17,7 +17,6 @@ public class NoticeTest {
 		List<BoardVO> list = mapper.getList();
 		for(BoardVO ar:list) {
 			System.out.println(ar);
-			
 		}
 	}
 	
