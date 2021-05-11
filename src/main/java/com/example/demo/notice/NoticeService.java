@@ -11,6 +11,7 @@ import com.example.demo.board.BoardVO;
 public class NoticeService implements BoardService {
 	@Autowired
 	private NoticeMapper noticeMapper;
+	
 	@Override
 	public List<BoardVO> getList() throws Exception {
 		// TODO Auto-generated method stub

@@ -1,7 +1,9 @@
 package com.example.demo.notice;
 
-import com.example.demo.board.BoardMapper;
+import org.apache.ibatis.annotations.Mapper;
 
+import com.example.demo.board.BoardMapper;
+@Mapper
 public interface NoticeMapper extends BoardMapper{
 	
 }
