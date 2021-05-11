@@ -1,4 +1,4 @@
-package com.example.demo.qna;
+package com.example.demo.board.qna;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

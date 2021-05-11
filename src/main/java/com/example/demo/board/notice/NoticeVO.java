@@ -1,4 +1,4 @@
-package com.example.demo.notice;
+package com.example.demo.board.notice;
 
 import com.example.demo.board.BoardVO;
 

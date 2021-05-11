@@ -11,6 +11,15 @@
     		where R between 1 and 10
     	</select>
     
-    
-    
+    	<select id="getSelect" parameterType="BoardVO" resultType="NoticeVO">
+    		select * from notice where num=#{num}
+    	</select>
+    	
+    	<update id="setUpdate" parameterType="BoardVO">
+    		update notice set title=#{title}, contents=#{contents} where num=#{num}
+    	</update>
+    	
+    	<delete id="setDelete" parameterType="BoardVO">
+    		delete notice where num=#{num}
+    	</delete>
     </mapper>

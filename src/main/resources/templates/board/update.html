@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+ <head th:include="/fragments/default::head(|${board}List|)">
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div th:replace="/fragments/default::header"></div>
+	<div th:replace="/fragments/default::jumbo"></div>	
+	
+	<div class="container">
+		<h2 th:text="${board}"></h2>
+		
+		<form action="update" method="post">
+			<input type="hidden" name="num" value="${vo.num}">
+			<div class="form-group">
+				<label for="writer">Writer:</label> <input type="text"
+					readonly="readonly" value="${vo.writer}" class="form-control"
+					id="writer" name="writer">
+			</div>
+			<div class="form-group">
+				<label for="title">Title:</label> <input type="text"
+					class="form-control" id="title" name="title" value="${vo.title}">
+			</div>
+
+			<div class="form-group">
+				<label for="contents">Contents:</label>
+				<textarea class="form-control" rows="5" id="contents"
+					name="contents" th:text="${vo.contents}"></textarea>
+			</div>
+
+			<input type="submit" id="btn" value="UPDATE" class="btn btn-outline-warning">
+		</form>
+		
+		
+	</div>
+	
+	
+	<footer th:replace="/fragments/default::footer"></footer>
+</body>
+</html>

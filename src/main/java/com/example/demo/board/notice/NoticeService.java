@@ -1,4 +1,4 @@
-package com.example.demo.notice;
+package com.example.demo.board.notice;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ public class NoticeService implements BoardService {
 	@Override
 	public BoardVO getSelect(BoardVO boardVO) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		return noticeMapper.getSelect(boardVO);
 	}
 	@Override
 	public Long setInsert(BoardVO boardVO) throws Exception {
@@ -30,11 +30,11 @@ public class NoticeService implements BoardService {
 	@Override
 	public Long setUpdate(BoardVO boardVO) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		return noticeMapper.setUpdate(boardVO);
 	}
 	@Override
 	public Long setDelete(BoardVO boardVO) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		return noticeMapper.setDelete(boardVO);
 	}
 }

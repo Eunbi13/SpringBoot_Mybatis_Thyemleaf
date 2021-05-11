@@ -1,4 +1,4 @@
-package com.example.demo.notice;
+package com.example.demo.board.notice;
 
 import org.apache.ibatis.annotations.Mapper;
 

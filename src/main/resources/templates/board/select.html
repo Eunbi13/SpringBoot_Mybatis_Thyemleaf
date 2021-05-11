@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+ <head th:include="/fragments/default::head(|${board}List|)">
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div th:replace="/fragments/default::header"></div>
+	<div th:replace="/fragments/default::jumbo"></div>	
+	
+	<div class="container">
+		<h2 th:text="${board}"></h2>
+		<table class="table">
+			<thead class="thead-dark">
+			    <tr>
+					<th scope="col">Num</th>
+					<th scope="col">Title</th>
+					<th scope="col">Writer</th>
+					<th scope="col">Date</th>
+					<th scope="col">Hit</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr >
+					<td th:text="${vo.num}"></td>
+					<td th:text="${vo.title}"></td>
+					<td th:text="${vo.writer}"></td>
+					<td th:text="${vo.regDate}"></td>
+					<td th:text="${vo.hit}"></td>
+				</tr>
+			</tbody>
+		</table>
+
+	<a th:href="@{update(num=${vo.num})}"  class="btn btn-outline-warning" >Update</a>
+	<a th:href="@{delete(num=${vo.num})}"  class="btn btn-outline-danger" >Delete</a>
+	
+	</div>	
+	<footer th:replace="/fragments/default::footer"></footer>
+</body>
+</html>

@@ -6,8 +6,49 @@
 </head>
 <body>
 	<div th:replace="/fragments/default::header"></div>
-	<div th:replace="/fragments/default::jumbo"></div>	  
-  	<h1 th:text="${board}"></h1>
+	<div th:replace="/fragments/default::jumbo"></div>	
+	<div class="container">  
+  		<h2 th:text="${board}"></h2>
+  		<table class="table">
+			<thead class="thead-dark">
+			    <tr>
+					<th scope="col">Num</th>
+					<th scope="col">Title</th>
+					<th scope="col">Writer</th>
+					<th scope="col">Date</th>
+					<th scope="col">Hit</th>
+					<th scope="col">Index</th><!-- 상태번호,,? 뭔소리지,,! -->
+					<th scope="col">Count</th>
+					<th scope="col">Size</th>
+					<!-- <th scope="col">Current</th> -->
+					<th scope="col">Even</th>
+					<th scope="col">Odd</th>
+					<th scope="col">First</th>
+					<th scope="col">Last</th>
+			    </tr>
+			</thead>
+			<tbody>
+				<tr th:each="vo, state : ${list}" ><!-- state 상태번호 -->
+					<th scope="row" th:text="${vo.num}"></th>
+					<!--th:text가 내부에 덮어씌우는거라서 
+						a태그 내부에 써야 링크가 제대로 써짐 그 외의 장소에 쓰면 ㄴ쓸모
+						파라미터 연결은 이렇게 한다 @{select(num=${vo.num}, title='test')-->
+					<td ><a th:href="@{select(num=${vo.num})}"th:text="${vo.title}"></a></td>
+					<td th:text="${vo.writer}"></td>
+					<td th:text="${vo.regDate}"></td>
+					<td th:text="${vo.hit}"></td>
+					<td th:text="${state.index}"></td><!-- 인덱스번호 0붙터 시작 -->
+					<td th:text="${state.count}"></td><!-- 1부터 시작 -->
+					<td th:text="${state.size}"></td><!-- 총갯수 -->
+					<!-- <td th:text="${state.current}"></td>현재요소 -->
+					<td th:text="${state.even}"></td><!-- 현재 반복요소가 짝수인가 -->
+					<td th:text="${state.odd}"></td><!-- 현재 반복요소가 홀수인가 -->
+					<td th:text="${state.first}"></td><!-- 현재 반복요소가 첫번쨰냐 -->
+					<td th:text="${state.last}"></td><!-- 현재 반복요소가 마지막번쨰냐 -->
+				</tr>
+			</tbody>
+		</table>
+  	</div>
   	<footer th:replace="/fragments/default::footer"></footer>
 </body>
 </html>
