@@ -31,7 +31,7 @@ public class Pager {
 		}
 		//3.totalBlock 수 총페이지를 묶는다면 몇블록이 나오냐
 		Long totalBlock = totalPage/perBlock;
-		if(totalBlock%perBlock!=0) {
+		if(totalPage%perBlock!=0) {
 			totalBlock++;
 		}
 		//4.curPage를 이용해서 curBlock 구하기 현재 페이지가 뭐고 몇번째 블럭에 있냐
@@ -157,11 +157,9 @@ public class Pager {
 	}
 
 	public void setSearch(String search) {
-		if(this.search==null) {
-			search="";
-		}else {
+		
 			this.search = search;
-		}
+		
 	}
 	
 	

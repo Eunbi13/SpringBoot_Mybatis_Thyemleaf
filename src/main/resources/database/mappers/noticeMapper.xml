@@ -32,7 +32,6 @@
     	<select id="getTotalCount" parameterType="Pager" resultType="java.lang.Long">
     		select count(num) from notice
     		<include refid="searcher"></include>
-    		limit #{startRow},#{perPage}
     	</select>
     
     	<select id="getSelect" parameterType="BoardVO" resultType="NoticeVO">
