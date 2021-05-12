@@ -7,15 +7,17 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.board.BoardService;
 import com.example.demo.board.BoardVO;
+import com.example.demo.util.Pager;
 @Service
 public class NoticeService implements BoardService {
 	@Autowired
 	private NoticeMapper noticeMapper;
 	
 	@Override
-	public List<BoardVO> getList() throws Exception {
+	public List<BoardVO> getList(Pager pager) throws Exception {
 		// TODO Auto-generated method stub
-		return noticeMapper.getList();
+		pager.makeRow();
+		return noticeMapper.getList(pager);
 	}
 	@Override
 	public BoardVO getSelect(BoardVO boardVO) throws Exception {
@@ -25,7 +27,7 @@ public class NoticeService implements BoardService {
 	@Override
 	public Long setInsert(BoardVO boardVO) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		return noticeMapper.setInsert(boardVO);
 	}
 	@Override
 	public Long setUpdate(BoardVO boardVO) throws Exception {

@@ -7,41 +7,34 @@
 <body>
 	<div th:replace="/fragments/default::header"></div>
 	<div th:replace="/fragments/default::jumbo"></div>	
-	
+
 	<div class="container">
-		<h2 th:text="${board}"></h2>
-		
-		<form th:action="@{./update}" method="post">
-			
-			<div class="form-group">
-				<label for="writer">writer</label> <input type="text"
-					class="form-control mycheck" readonly="readonly" 
-					 name="num" th:attr="value=${vo.num}">
-			</div>
+	
+	<form th:action="@{./insert}" method="post">
+	
 			<div class="form-group">
 				<label for="writer">writer</label> <input type="text"
 					class="form-control mycheck" id="writer"
-					th:attr="value=${vo.writer}" name="writer">
+					value="${member.name}" name="writer">
 			</div>
 
 			<div class="form-group">
 				<label for="title">Title</label> <input type="text"
 					class="form-control exist mycheck" id="title" placeholder="Title"
-					name="title" th:attr="value=${vo.title}">
+					name="title">
 			</div>
 
 			<div class="form-group">
 				<label for="contents">Contents</label>
 				<textarea class="form-control exist mycheck" id="contents" rows="3"
-					name="contents" th:attr="value=${vo.contents}"></textarea>
+					name="contents"></textarea>
 			</div>
-			<button>button</button>
-		</form>
-		
-		
+			
+			<button  class="btn btn-outline-warning">button</button>
+	</form>
+	
+	
 	</div>
-	
-	
 	<footer th:replace="/fragments/default::footer"></footer>
 </body>
 </html>

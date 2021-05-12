@@ -15,13 +15,24 @@ public class NoticeTest {
 
 	@Autowired
 	private NoticeMapper mapper;
-	@Test
-	public void getList() throws Exception{
+	
+	void getList() throws Exception{
 		List<BoardVO> list = mapper.getList();
 		for(BoardVO ar:list) {
 			System.out.println(ar);
 		}
 		assertNotNull(list);
 	}
-	
+	@Test
+	void setInsertTest()throws Exception{
+		for(int i =0; i<100; i++) {
+			BoardVO vo = new BoardVO();
+			vo.setTitle("title"+1);
+			vo.setWriter("writer"+1);
+			vo.setContents("contents"+1);
+			mapper.setInsert(vo);
+			Thread.sleep(500);
+		}
+		System.out.println("fin");
+	}
 }

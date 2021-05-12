@@ -7,5 +7,6 @@
   	<typeAliases>
   		<typeAlias type="com.example.demo.board.BoardVO" alias="BoardVO"/>
   		<typeAlias type="com.example.demo.board.notice.NoticeVO" alias="NoticeVO"/>
+  		<typeAlias type="com.example.demo.util.Pager" alias="Pager"/>
   	</typeAliases>
   </configuration>
