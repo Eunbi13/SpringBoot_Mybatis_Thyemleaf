@@ -12,6 +12,13 @@ public class Pager {
 	private boolean pre;
 	private boolean next;
 	
+	
+	//search
+	private String kind;
+	private String search;
+	
+	
+	
 	public void makeNum(Long totalCount) {
 		int perBlock =5;
 		
@@ -124,6 +131,37 @@ public class Pager {
 
 	public void setNext(boolean next) {
 		this.next = next;
+	}
+
+	public Long getStartRow() {
+		return startRow;
+	}
+
+	public void setStartRow(Long startRow) {
+		this.startRow = startRow;
+	}
+
+	public String getKind() {
+		return kind;
+	}
+
+	public void setKind(String kind) {
+		this.kind = kind;
+	}
+
+	public String getSearch() {
+		if(this.search==null) {
+			search="";
+		}
+		return search;
+	}
+
+	public void setSearch(String search) {
+		if(this.search==null) {
+			search="";
+		}else {
+			this.search = search;
+		}
 	}
 	
 	

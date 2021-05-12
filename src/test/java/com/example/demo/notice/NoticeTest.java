@@ -17,11 +17,11 @@ public class NoticeTest {
 	private NoticeMapper mapper;
 	
 	void getList() throws Exception{
-		List<BoardVO> list = mapper.getList();
-		for(BoardVO ar:list) {
-			System.out.println(ar);
-		}
-		assertNotNull(list);
+//		List<BoardVO> list = mapper.getList();
+//		for(BoardVO ar:list) {
+//			System.out.println(ar);
+//		}
+//		assertNotNull(list);
 	}
 	@Test
 	void setInsertTest()throws Exception{
