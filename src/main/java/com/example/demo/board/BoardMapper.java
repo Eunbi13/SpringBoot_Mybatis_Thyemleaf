@@ -11,7 +11,7 @@ public interface BoardMapper {
 	//list
 	public List<BoardVO> getList(Pager pager)throws Exception;
 	//count
-	public Long getTotalCount()throws Exception;
+	public Long getTotalCount(Pager pager)throws Exception;
 	//select
 	public BoardVO getSelect(BoardVO boardVO)throws Exception;
 	//insert

@@ -49,8 +49,24 @@
 			</tbody>
 		</table>
 		
-		<a href="#" th:href="@{./insert}" class="btn btn-outline-warning">Write</a>
+		
+		<a href="#" th:href="@{./insert}" class="btn btn-outline-warning" >Write</a>
   	</div>
+  	<div class="container d-flex justify-content-center">
+		  <ul class="pagination">
+		  
+		    <li class="page-item"  th:if="${pager.pre}">
+		    	<a class="page-link" th:href="@{./list(curPage=${pager.startNum-1})}">Previous</a>
+		    </li>
+		    <!-- 유틸리티 쓸때 #으로 구분 sequence가 startNum부터 순서대로 1씩 증가해서 i에 넣고 lastNum까지 동작-->
+		    <li class="page-item" th:each="i : ${#numbers.sequence(pager.startNum, pager.lastNum)}">
+		    	<a class="page-link" th:href="@{./list(curPage=${i})}" th:text="${i}"></a>
+		    </li>
+		    <li class="page-item" th:if="${pager.next}">
+		    	<a class="page-link" th:href="@{./list(curPage=${pager.lastNum+1})}">Next</a>
+		    </li>
+		  </ul>
+	</div>
   	<footer th:replace="/fragments/default::footer"></footer>
 </body>
 </html>

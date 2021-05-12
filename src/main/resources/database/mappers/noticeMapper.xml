@@ -6,7 +6,11 @@
     <mapper namespace="com.example.demo.board.notice.NoticeMapper">
     	<select id="getList" parameterType="Pager" resultType="NoticeVO">
     		select * from notice order by num desc
-    		limit #{curPage},#{perPage}
+    		limit #{startRow},#{perPage}
+    	</select>
+    	
+    	<select id="getTotalCount" parameterType="Pager" resultType="java.lang.Long">
+    		select count(*) from notice
     	</select>
     
     	<select id="getSelect" parameterType="BoardVO" resultType="NoticeVO">
