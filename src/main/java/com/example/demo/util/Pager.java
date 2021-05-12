@@ -29,7 +29,7 @@ public class Pager {
 		}
 		//4.curPage를 이용해서 curBlock 구하기 현재 페이지가 뭐고 몇번째 블럭에 있냐
 		Long curBlock = curPage/perBlock;
-		if(curPage%perPage!=0) {
+		if(curPage%perBlock!=0) {
 			curBlock++;
 		}
 		//5.curBlock으로 starNum, lastNum구하기 
