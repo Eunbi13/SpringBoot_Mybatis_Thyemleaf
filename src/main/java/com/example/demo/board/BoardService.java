@@ -2,6 +2,8 @@ package com.example.demo.board;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.example.demo.util.Pager;
 
 public interface BoardService {
@@ -10,7 +12,7 @@ public interface BoardService {
 		//select
 		public BoardVO getSelect(BoardVO boardVO)throws Exception;
 		//insert
-		public Long setInsert(BoardVO boardVO)throws Exception;
+		public Long setInsert(BoardVO boardVO, MultipartFile [] files)throws Exception;
 		//update
 		public Long setUpdate(BoardVO boardVO)throws Exception;
 		//delete

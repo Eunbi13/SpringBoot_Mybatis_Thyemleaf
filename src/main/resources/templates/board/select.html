@@ -29,10 +29,14 @@
 					<td th:text="${vo.hit}"></td>
 				</tr>
 				<tr >
-					<td colspan="5" th:text="${vo.contents}"></td>
+				<!-- utext HTML 문법을 적용한 텍스트  -->
+					<td colspan="5" th:utext="${vo.contents}"></td>
 				</tr>
 			</tbody>
 		</table>
+		<p th:each="fileVO : ${vo.files}">
+			<a th:href="@{|/upload/${board}/${fileVO.fileName}|}" th:text="${fileVO.oriName}"></a>
+		</p>
 
 	<a th:href="@{update(num=${vo.num})}"  class="btn btn-outline-warning" >Update</a>
 	<a th:href="@{delete(num=${vo.num})}"  class="btn btn-outline-danger" >Delete</a>

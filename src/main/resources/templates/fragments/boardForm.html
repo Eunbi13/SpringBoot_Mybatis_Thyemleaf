@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+ <head th:include="/fragments/default::head(|${board}List|)">
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div th:replace="/fragments/default::header"></div>
+	<div th:replace="/fragments/default::jumbo"></div>	
+	
+	<div class="container">
+		<div th:fragment="form(action)" >
+		<h2 th:text="|${board} ${action}|"></h2>
+		
+		<form th:action="@{${action}}" method="post" enctype="multipart/form-data">
+			
+			<div class="form-group" >
+				<label for="num"></label> <input type="hidden"
+					class="form-control mycheck" readonly="readonly" 
+					 name="num" th:value="${vo.num}">
+			</div>
+			
+			<div class="form-group">
+				<label for="title">Title</label> <input type="text"
+					class="form-control exist mycheck" id="title" placeholder="Title"
+					name="title" th:value="${vo.title}">
+			</div>
+
+			<div class="form-group">
+				<label for="writer">writer</label> <input type="text"
+					class="form-control mycheck" id="writer"
+					name="writer" th:value="${vo.writer}">
+			</div>
+			
+			<div class="form-group">
+				<label for="contents">Contents</label>
+				<textarea class="form-control exist mycheck" id="contents" rows="3"
+					name="contents" th:text="${vo.contents}"></textarea>
+			</div>
+			
+			<div><!-- 파일업로드 배열인거 잊지 말기-->
+				<input type="file" name="files">
+				<input type="file" name="files">
+			</div>
+			
+			<button  class="btn btn-outline-warning">Write</button>
+		</form>
+		
+		</div>
+	</div>
+	
+	
+	<footer th:replace="/fragments/default::footer"></footer>
+	
+	
+	
+</body>
+</html>

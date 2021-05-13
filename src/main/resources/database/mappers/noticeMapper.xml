@@ -34,19 +34,47 @@
     		<include refid="searcher"></include>
     	</select>
     
-    	<select id="getSelect" parameterType="BoardVO" resultType="NoticeVO">
-    		select * from notice where num=#{num}
+    	<select id="getSelect" parameterType="BoardVO" resultMap="selectResult">
+    		SELECT N.*,NF.* FROM 
+    		notice N LEFT JOIN noticeFiles NF 
+    		ON N.num=NF.num 
+    		where N.num=#{num}
     	</select>
     	
-    	<select id="setInsert" parameterType="BoardVO">
-    		INSERT INTO notice VALUES (NULL, #{title}, #{writer}, #{contents}, NOW(), 0)
-    	</select>
+    	<resultMap type="NoticeVO" id="selectResult">
+    		<id column="num" property="num"/>
+    		<result column="title"  property="title"/>
+    		<result column="writer" property="writer"/>
+    		<result column="contents"  property="contents"/>
+    		<result column="regDate" property="regDate"/>
+    		<result column="hit" property="hit"/>
+    		<collection property="files" javaType="java.util.List" ofType="BoardFileVO">
+    			<id column="num" property="num"/>
+    			<result column="fileName" property="fileName"/>
+    			<result column="oriName" property="oriName"/>
+    		</collection>
+    	</resultMap>
+    	
+    	
+    	<update id="setHitUpdate" parameterType="BoardVO">
+    		update notice set hit=hit+1 where num=#{num}
+    	</update>
+    	
+    	<insert id="setInsert" parameterType="BoardVO" useGeneratedKeys="true" keyProperty="num">
+    		INSERT INTO notice VALUES (#{num}, #{title}, #{writer}, #{contents}, NOW(), 0)
+    	</insert>
+    	
+    	<insert id="setFileInsert" parameterType="BoardFileVO" >
+    		INSERT INTO noticeFiles (num, fileName, oriName)
+    		VALUES(#{num}, #{fileName}, #{oriName})
+    		
+    	</insert>
     	
     	<update id="setUpdate" parameterType="BoardVO">
-    		update notice set title=#{title}, writer=#{writer}, contents=#{contents} where num=#{num}
+    		update notice set title=#{title}, contents=#{contents} where num=#{num}
     	</update>
     	
     	<delete id="setDelete" parameterType="BoardVO">
-    		delete notice where num=#{num}
+    		delete from notice where num=#{num}
     	</delete>
     </mapper>
