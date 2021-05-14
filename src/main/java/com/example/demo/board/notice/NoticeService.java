@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.board.BoardFileVO;
@@ -33,12 +34,18 @@ public class NoticeService implements BoardService {
 		return noticeMapper.getSelect(boardVO);
 	}
 	@Override
+	@Transactional(rollbackFor = Exception.class)//에러나면 롤백해라 
 	public Long setInsert(BoardVO boardVO, MultipartFile [] files) throws Exception {
 		// TODO Auto-generated method stub
 		Long result = noticeMapper.setInsert(boardVO);
+		//exception이 발생하지 않았어도 등록이 안될 수 도 있음
+		if(result<1) {
+			throw new Exception();//강제로 이셉션 발생시키기
+		}
+		
+		
 		//file
-		String filePath = "uploa"
-				+ "d/notice/";
+		String filePath = "upload/notice/";
 		for(MultipartFile f: files) {
 			if(f.getSize()==0) { continue; }
 			String fileName = fileManager.save(f, filePath);
