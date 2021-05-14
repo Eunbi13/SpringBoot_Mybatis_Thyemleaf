@@ -67,8 +67,7 @@
     	<insert id="setFileInsert" parameterType="BoardFileVO" >
     		INSERT INTO noticeFiles (num, fileName, oriName)
     		VALUES(#{num}, #{fileName}, #{oriName})
-    		
-    	</insert>
+       	</insert>
     	
     	<update id="setUpdate" parameterType="BoardVO">
     		update notice set title=#{title}, contents=#{contents} where num=#{num}

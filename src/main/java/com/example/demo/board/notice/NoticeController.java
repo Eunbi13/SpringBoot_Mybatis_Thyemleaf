@@ -26,6 +26,21 @@ public class NoticeController {
 	public String getBoard() {
 		return "notice";//벨류값
 	}
+	
+	//fileDown
+	@GetMapping("fileDown")
+	public ModelAndView fileDown(String fileName, String oriName) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("fileDown");
+		mv.addObject("fileName", fileName);//select.html
+		mv.addObject("oriName", oriName);
+		mv.addObject("filePath", "/upload/notice/");
+	 // view 네임과 일치하는 (AbstractView를 상속받는) 클래스를 먼저 찾고 없으면 fileDown.html을 찾으러 감
+		return mv;
+	}
+	
+	
+	
 	@GetMapping("list")
 	public String getList(Model model, Pager pager)throws Exception{
 		List<BoardVO> ar = noticeService.getList(pager);
