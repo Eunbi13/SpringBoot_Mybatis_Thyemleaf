@@ -9,5 +9,8 @@
   		<typeAlias type="com.example.demo.board.BoardFileVO" alias="BoardFileVO"/>
   		<typeAlias type="com.example.demo.board.notice.NoticeVO" alias="NoticeVO"/>
   		<typeAlias type="com.example.demo.util.Pager" alias="Pager"/>
+  		
+  		<typeAlias type="com.example.demo.member.MemberVO" alias="MemberVO"/>
+  		<typeAlias type="com.example.demo.member.MemberFileVO" alias="MemberFileVO"/>
   	</typeAliases>
   </configuration>
