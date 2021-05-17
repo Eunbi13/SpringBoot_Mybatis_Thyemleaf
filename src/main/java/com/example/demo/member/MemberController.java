@@ -1,5 +1,7 @@
 package com.example.demo.member;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +23,9 @@ public class MemberController {
 	
 	@PostMapping("join")
 	public String setJoin(MemberVO memberVO, MultipartFile file)throws Exception{
+		System.out.println(file.getName());
+		System.out.println(file.getOriginalFilename());
+		
 		service.setJoin(memberVO, file);
 		return "redirect:../";
 	}
@@ -31,20 +36,23 @@ public class MemberController {
 	}
 	
 	@PostMapping("login")
-	public String getLogin(MemberVO memberVO)throws Exception{
-		service.getLogin(memberVO);
-		return "redirect:../";
+	public String getLogin(MemberVO memberVO, HttpSession session)throws Exception{
+		memberVO = service.getLogin(memberVO);
+		session.setAttribute("member", memberVO);
+		
+		
+		return "redirect:/";
 	}
 	
 	@GetMapping("page")
 	public String getMyPage() throws Exception{
-		return "/member/memberPage";
+		return "member/memberPage";
 	}
 	
 	@GetMapping("logout")
-	public String logout() throws Exception{
-		
-		return "/";
+	public String logout(HttpSession session) throws Exception{
+		session.invalidate();
+		return "redirect:/";
 	}
 	
 }

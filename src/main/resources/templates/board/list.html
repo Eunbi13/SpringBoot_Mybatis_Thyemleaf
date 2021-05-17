@@ -60,7 +60,11 @@
 					<!--th:text가 내부에 덮어씌우는거라서 
 						a태그 내부에 써야 링크가 제대로 써짐 그 외의 장소에 쓰면 ㄴ쓸모
 						파라미터 연결은 이렇게 한다 @{select(num=${vo.num}, title='test')-->
-					<td ><a th:href="@{select(num=${vo.num})}"th:text="${vo.title}"></a></td>
+					<td >
+					<span  th:if="${board=='qna'}">
+					<span th:if="${vo.depth !=0}" th:each="i : ${#numbers.sequence(1, vo.depth)}" >-</span></span>
+						<a th:href="@{select(num=${vo.num})}"th:text="${vo.title}"></a>
+					</td>
 					<td th:text="${vo.writer}"></td>
 					<td th:text="${vo.regDate}"></td>
 					<td th:text="${vo.hit}"></td>
@@ -77,8 +81,12 @@
 		</table>
 		
 		<a href="#" th:href="@{./fileDown}" class="btn btn-outline-warning" >fileDown</a>
-		<a href="#" th:href="@{./insert}" class="btn btn-outline-warning" >Write</a>
+		<span th:if="${!session.isEmpty()}">
+			<a href="#" th:if="${board =='notice' && session.member.userName=='admin'}" th:href="@{./insert}" class="btn btn-outline-warning" >Write</a>
+			<a href="#" th:if="${board !='notice'}" th:href="@{./insert}" class="btn btn-outline-warning" >Write</a>
+		</span>
   	</div>
+  	
   	<div class="container d-flex justify-content-center">
 		  <ul class="pagination">
 		    <li class="page-item" >
@@ -97,7 +105,7 @@
 	</div>
   	<footer th:replace="/fragments/default::footer"></footer>
   	
-  <script type="text/javascript" th:src="@{-=/js/boardSearch.js}"></script>
+  <script type="text/javascript" th:src="@{/js/boardSearch.js}"></script>
   	
   	
 </body>

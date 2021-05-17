@@ -12,6 +12,8 @@ public class MemberService {
 	
 	@Autowired
 	private MemberMapper mapper;
+	
+	
 	@Transactional(rollbackFor = Exception.class)
 	public Long setJoin(MemberVO memberVO, MultipartFile file) throws Exception{
 		
@@ -19,19 +21,22 @@ public class MemberService {
 		if(result<1) {
 			throw new Exception();
 		}
-		FileManager fileManager = new FileManager();
-		String path = "/upload/member/";
-				
-		String fileName = fileManager.save(file, path);
-		//파일 넘겨주는 작업 필요 그리고 마이페이지 작업하면 끝
+		if(file.getSize() !=0) {//size로 하면 되는구나
+			FileManager fileManager = new FileManager();
+			String path = "upload/member/";
+			String fileName = fileManager.save(file, path);
+			MemberFileVO fileVO = new MemberFileVO();
+			fileVO.setUserName(memberVO.getUserName());
+			fileVO.setFileName(fileName);
+			fileVO.setOriName(file.getOriginalFilename());
+			mapper.setMemberFile(fileVO);
+		}
 		return result;
 	}
 	public MemberVO getLogin(MemberVO memberVO)throws Exception{
 		return mapper.getLogin(memberVO);
 	}
 	
-	public MemberVO getMyPage(MemberVO memberVO)throws Exception{
-		return mapper.getMyPage(memberVO);
-	}
+	
 
 }

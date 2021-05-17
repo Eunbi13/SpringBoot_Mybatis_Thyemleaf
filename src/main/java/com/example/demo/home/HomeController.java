@@ -15,11 +15,7 @@ public class HomeController {
 	@GetMapping("/")
 	public String home(Model model) {
 		//model.addAttribute("message", "Thymeleaf project");
-		BoardVO boardVO = new BoardVO();
-		boardVO.setNum(1L);
-		boardVO.setTitle("title");
-		boardVO.setWriter("writer");
-		System.out.println(boardVO);
+	
 		return "index";
 	}
 }

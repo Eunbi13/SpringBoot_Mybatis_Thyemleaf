@@ -2,6 +2,8 @@ package com.example.demo.board.notice;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.board.BoardVO;
+import com.example.demo.member.MemberVO;
 import com.example.demo.util.Pager;
 
 
@@ -59,10 +62,22 @@ public class NoticeController {
 	}
 	
 	@GetMapping("insert")
-	public String setInsert(Model model)throws Exception{
+	public String setInsert(Model model, HttpSession session)throws Exception{
 		model.addAttribute("vo", new BoardVO());
 		model.addAttribute("action", "insert");
-		return "board/form";
+		
+		//=========보안 코드======select뺴고 다 체크해야함 그래서 util로 만든다,,? 
+		Object obj = session.getAttribute("member");
+		String path = "redirect:/member/login";
+		MemberVO memberVO=null;
+		if(obj instanceof MemberVO) {//!=null
+			memberVO = (MemberVO)obj;
+			if(memberVO.getUserName().equals("admin")) {
+				path = "board/form";
+			}
+		}
+		
+		return path;
 	}
 	
 	@PostMapping("insert")

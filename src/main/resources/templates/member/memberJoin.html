@@ -14,7 +14,7 @@
 	<div class="container">
 		<h1>MemberJoin Page</h1>
 	<!-- FORM -->
-		<form action="./join" method="post" enctype="multipart/form-data">
+		<form th:action="@{join}" method="post" enctype="multipart/form-data">
 		  <div class="form-group">
 		    <label for="exampleInputPassword1">UserName</label>
 		    <input type="text" class="form-control" id="userName" name="userName">
@@ -36,14 +36,13 @@
 		    <label for="exampleInputPassword1">Phone</label>
 		    <input type="text" class="form-control" id="phone" name="phone">
 		  </div>
-		  <button type="submit" class="btn btn-primary">Submit</button>
-		</form>
 		<!-- 파일 업로드 -->
-		  <div class="form-group">
-		    <label for="exampleFormControlFile1">Example file input</label>
-		    <input type="file" class="form-control-file" id="file" name="file">
+		  <div>
+		    <input type="file"name="file">
 		  </div>
 		
+		  <button class="btn btn-primary">Submit</button>
+		</form>
 	</div>
 	
 	

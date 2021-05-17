@@ -1,5 +1,6 @@
 package com.example.demo.member;
 
+
 import lombok.Data;
 
 @Data
@@ -10,5 +11,5 @@ public class MemberVO {
 	private String email;
 	private String phone;
 	
-	private MemberFileVO file;
+	private MemberFileVO memberFileVO;
 }

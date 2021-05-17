@@ -10,26 +10,24 @@
     	<insert id="setMemberFile" parameterType="MemberFileVO">
     		INSERT INTO memberfile VALUES(NULL,#{userName},#{fileName},#{oriName})
     	</insert>
-    	<select id="getLogin" parameterType="MemberVO" resultType="MemberVO">
-    		SELECT * FROM member WHERE userName=#{userName} AND PASSWORD=#{password}
-    	</select>
-    	<select id="getMyPage" parameterType="MemberVO" resultMap="Result">
+    	<select id="getLogin" parameterType="MemberVO" resultMap="Result">
     		SELECT M.*, MF.* 
     		FROM member M LEFT JOIN memberFile MF 
-    		ON M.userName=MF.userName WHERE M.userName=#{userName}
+    		ON M.userName=MF.userName WHERE M.userName=#{userName} AND M.PASSWORD=#{password}
     	</select>
+    	
     	<resultMap type="MemberVO" id="Result">
     		<id column="userName" property="userName"/>
     		<result column="password" property="password"/>
     		<result column="name" property="name"/>
-    		<result column="email" property="emil"/>
+    		<result column="email" property="email"/>
     		<result column="phone" property="phone"/>
-    		<collection property="file" javaType="java.util.List">
-    			<id column="fileNum" property="fileNum"/>
-    			<result column="userName" property="userName"/>
-    			<result column="fileName" property="fileName"/>
-    			<result column="oriName" property="oriName"/>
-    		</collection>
+    		<association property="memberFileVO" javaType="MemberFileVO">
+	    		<id property="fileNum" column="fileNum"/>
+	    		 <result property="userName" column="userName"/>
+	    		<result property="fileName" column="fileName"/>
+	    		<result property="origineName" column="origineName"/>
+    		</association>
     	</resultMap>
     
     </mapper>
