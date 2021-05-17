@@ -68,7 +68,9 @@ public class NoticeController {
 		
 		//=========보안 코드======select뺴고 다 체크해야함 그래서 util로 만든다,,? 
 		Object obj = session.getAttribute("member");
-		String path = "redirect:/member/login";
+		String path = "common/result";
+		model.addAttribute("msg","관리자가 아닙니다");
+		model.addAttribute("path","./list");
 		MemberVO memberVO=null;
 		if(obj instanceof MemberVO) {//!=null
 			memberVO = (MemberVO)obj;
