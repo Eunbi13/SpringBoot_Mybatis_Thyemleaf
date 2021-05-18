@@ -82,6 +82,7 @@ public class QnaController {
 		boardVO = qnaService.getSelect(boardVO);
 		model.addAttribute("action", "update");
 		model.addAttribute("vo", boardVO);
+		//null인지 아닌지 검사해야한다.
 		return "board/form";
 	}
 	
