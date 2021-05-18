@@ -1,5 +1,8 @@
 package com.example.demo.interceptor;
 
+import java.util.Iterator;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -39,6 +42,18 @@ public class TestInterceptor implements HandlerInterceptor{
 			ModelAndView modelAndView) throws Exception {
 		// TODO Auto-generated method stub
 		System.out.println("컨트롤러 종료 후");
+		Map<String, Object> map = modelAndView.getModel();
+		//key를 알아야 꺼낼 수 있음 
+		Iterator<String> it=map.keySet().iterator();//set은 중복허용안함 순서 유지 안함
+		while(it.hasNext()) {
+			String key = it.next();
+			System.out.println(key);
+			System.out.println("value: "+map.get(key));
+		}
+		System.out.println("view: "+modelAndView.getViewName());
+		//view 이름 변경 가능
+		
+		
 	}
 	
 	@Override

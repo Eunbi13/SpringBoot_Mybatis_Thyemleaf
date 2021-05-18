@@ -21,21 +21,18 @@ public class AdminInterceptor implements HandlerInterceptor{
 	//RequestDispatcher view = request.getRequestDispatcher("경로");
 	//view.forward(request,response);
 	//
+	//page 객체 			/--/			
+	//request객체		/----/			
+	//session객체		/------/		
+	//application객체	/--------/		
+	//객체의 크기가 큰쪽에서는 작은 쪽이 만들어진지 아닌지 모름
+	//하지만 생명주기가 짧은 쪽에서는 
+	//생성되었단 것 자체가 큰 쪽이 만들어져있다는 이야기임
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		// TODO Auto-generated method stub
-		
-		//page 객체 			/--/			
-		//request객체		/----/			
-		//session객체		/------/		
-		//application객체	/--------/		
-		//객체의 크기가 큰쪽에서는 작은 쪽이 만들어진지 아닌지 모름
-		//하지만 생명주기가 짧은 쪽에서는 
-		//생성되었단 것 자체가 큰 쪽이 만들어져있다는 이야기임
-		
-		
 		
 		System.out.println("프리핸들 시작 ");
 		HttpSession session = request.getSession();
