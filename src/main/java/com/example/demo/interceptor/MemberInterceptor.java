@@ -21,7 +21,7 @@ public class MemberInterceptor implements HandlerInterceptor{
 			throws Exception {
 		boolean result = false;
 		
-		// post 컨트롤러 들어가기 전에 검사해야함
+		// post 컨트롤러 들어가기 전에 검사해야하는것 뭗를? 아이디 중복을!
 		String method = request.getMethod();
 		if(method.equals("post")) {
 			String userName=request.getParameter("userName");
