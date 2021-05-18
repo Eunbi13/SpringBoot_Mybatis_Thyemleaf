@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,8 +43,7 @@ public class NoticeController {
 		return mv;
 	}
 	
-	
-	
+		
 	@GetMapping("list")
 	public String getList(Model model, Pager pager)throws Exception{
 		List<BoardVO> ar = noticeService.getList(pager);
@@ -111,5 +111,18 @@ public class NoticeController {
 	public String setDelete(BoardVO boardVO)throws Exception{
 		noticeService.setDelete(boardVO);
 		return "redirect:./list";
+	}
+	
+	//=======error=======
+	@ExceptionHandler(ArithmeticException.class)
+	public String getMath(Model model) {
+		//코드 진행
+		model.addAttribute("msg", "수학적오류발생");
+		return "error/500";
+	}
+	@ExceptionHandler(Throwable.class)
+	public String getException(Model model) {
+		model.addAttribute("msg","관리자에게 문의하세요");
+		return "error/500";
 	}
 }
