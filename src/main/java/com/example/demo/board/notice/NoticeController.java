@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +25,9 @@ import com.example.demo.util.Pager;
 public class NoticeController {
 	@Autowired
 	private NoticeService noticeService;
+	@Value("${board.notice.filePath}")
+	private String filePath;
+	
 	
 	@ModelAttribute("board")//속성의 이름
 	public String getBoard() {
@@ -37,7 +41,7 @@ public class NoticeController {
 		mv.setViewName("fileDown");
 		mv.addObject("fileName", fileName);//select.html
 		mv.addObject("oriName", oriName);
-		mv.addObject("filePath", "/upload/notice/");
+		mv.addObject("filePath", this.filePath/* "/upload/notice/" */);
 	 // view 네임과 일치하는 (AbstractView를 상속받는) 클래스를 먼저 찾고 없으면 fileDown.html을 찾으러 감
 		return mv;
 	}
@@ -46,6 +50,8 @@ public class NoticeController {
 	
 	@GetMapping("list")
 	public String getList(Model model, Pager pager)throws Exception{
+		System.out.println("filePath: "+filePath);
+		
 		List<BoardVO> ar = noticeService.getList(pager);
 		model.addAttribute("list", ar);
 		model.addAttribute("pager", pager);

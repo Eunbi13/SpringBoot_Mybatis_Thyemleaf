@@ -3,6 +3,7 @@ package com.example.demo.board.qna;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +23,7 @@ public class QnaController {
 	
 	@Autowired
 	private QnaService qnaService;
+	
 	
 	@ModelAttribute("board")//뭐든지 얘가 제일 먼저 실행됨 //속성의 이름
 	public String getBoard() {

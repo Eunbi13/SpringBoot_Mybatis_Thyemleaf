@@ -3,6 +3,7 @@ package com.example.demo.board.qna;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,6 +20,8 @@ public class QnaService implements BoardService{
 	private QnaMapper qnaMapper;
 	@Autowired
 	private FileManager fileManager;
+	@Value("board.qna.filePath")
+	private String filePath;
 	
 	@Override
 	public List<BoardVO> getList(Pager pager) throws Exception {
@@ -44,7 +47,7 @@ public class QnaService implements BoardService{
 			throw new Exception();//강제로 이셉션 발생시키기
 		}
 		//3. file save
-		String filePath = "upload/qna/";
+		String filePath = this.filePath;
 		for(MultipartFile f: files) {
 			if(f.getSize()==0) { continue; }
 			String fileName = fileManager.save(f, filePath);
@@ -65,7 +68,7 @@ public class QnaService implements BoardService{
 		//2.reply insert
 		Long result = qnaMapper.setReplyInsert(boardVO);
 		//3.첨부파일 받을거면
-		String filePath = "upload/qna/";
+		String filePath = this.filePath;
 		for(MultipartFile f: files) {
 			if(f.getSize()==0) { continue; }
 			String fileName = fileManager.save(f, filePath);

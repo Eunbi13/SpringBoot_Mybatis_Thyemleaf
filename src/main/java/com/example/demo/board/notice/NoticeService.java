@@ -3,6 +3,7 @@ package com.example.demo.board.notice;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,6 +19,10 @@ public class NoticeService implements BoardService {
 	private NoticeMapper noticeMapper;
 	@Autowired
 	private FileManager fileManager;
+	
+	@Value("${board.notice.filePath}")
+	private String filePath;
+	
 	
 	@Override
 	public List<BoardVO> getList(Pager pager) throws Exception {
@@ -45,7 +50,7 @@ public class NoticeService implements BoardService {
 		
 		
 		//file
-		String filePath = "upload/notice/";
+		String filePath = this.filePath;//"upload/notice/";//approperties에서 이 부분을 작업할 수 있다. 
 		for(MultipartFile f: files) {
 			if(f.getSize()==0) { continue; }
 			String fileName = fileManager.save(f, filePath);
