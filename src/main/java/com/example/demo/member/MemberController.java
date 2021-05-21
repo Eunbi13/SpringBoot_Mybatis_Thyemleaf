@@ -1,10 +1,14 @@
 package com.example.demo.member;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,12 +21,21 @@ public class MemberController {
 	private MemberService service;
 	
 	@GetMapping("join")
-	public String setJoin()throws Exception{
+	public String setJoin(@ModelAttribute MemberVO memberVO)throws Exception{
 		return "member/memberJoin";
 	}
 	
 	@PostMapping("join")
-	public String setJoin(MemberVO memberVO, MultipartFile file)throws Exception{
+	public String setJoin(@Valid MemberVO memberVO,Errors errors, MultipartFile file)throws Exception{
+		
+//		if(errors.hasErrors()) {
+//			return "member/memberJoin";
+//		}
+		
+		if(service.memberError(memberVO, errors)) {
+			return "member/memberJoin";
+		}
+		
 		System.out.println(file.getName());
 		System.out.println(file.getOriginalFilename());
 		
@@ -37,6 +50,9 @@ public class MemberController {
 	
 	@PostMapping("login")
 	public String getLogin(MemberVO memberVO, HttpSession session)throws Exception{
+		
+		
+		
 		memberVO = service.getLogin(memberVO);
 		session.setAttribute("member", memberVO);
 		

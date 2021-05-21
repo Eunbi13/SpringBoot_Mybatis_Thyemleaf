@@ -3,6 +3,7 @@ package com.example.demo.member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.Errors;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.util.FileManager;
@@ -13,6 +14,27 @@ public class MemberService {
 	@Autowired
 	private MemberMapper mapper;
 	
+	//검증 메서드
+	public boolean memberError(MemberVO memberVO, Errors errors)throws Exception{
+		boolean result=false;
+		
+		//기본 제공 검증 결과
+//		if(errors.hasErrors()) {
+//			result=true;
+//		}
+		result = errors.hasErrors();
+		
+		//검증 코드 만들기
+		//password가 일치하는가?
+		if(!memberVO.getPassword().equals(memberVO.getPasswordCheck())) {
+			errors.rejectValue("passwordCheck", "memberVO.password.notEqual");
+							  //form path||field	properties에 적은 키
+			result=true;//에러 발생하면 트루
+		}
+		
+		
+		return result;
+	}
 	
 	@Transactional(rollbackFor = Exception.class)
 	public Long setJoin(MemberVO memberVO, MultipartFile file) throws Exception{
