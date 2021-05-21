@@ -10,6 +10,7 @@ import lombok.Data;
 @Data
 public class MemberVO {
 	private String userName;
+	
 	@Length(max = 10, min=4)
 	private String password;
 	

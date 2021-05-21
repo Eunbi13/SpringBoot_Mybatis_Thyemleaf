@@ -7,6 +7,11 @@
     	<insert id="setJoin" parameterType="MemberVO">
     		INSERT INTO member VALUES(#{userName}, #{password}, #{name}, #{email}, #{phone})
     	</insert>
+    	
+    	<select id="checkUserName" parameterType="MemberVO" resultType="java.lang.Long">
+    		select count(userName) from member where userName = #{userName}
+    	</select>
+    	
     	<insert id="setMemberFile" parameterType="MemberFileVO">
     		INSERT INTO memberfile VALUES(NULL,#{userName},#{fileName},#{oriName})
     	</insert>

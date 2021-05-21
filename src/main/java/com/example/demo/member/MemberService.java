@@ -32,6 +32,15 @@ public class MemberService {
 			result=true;//에러 발생하면 트루
 		}
 		
+		if(mapper.checkUserName(memberVO)>0) {
+			errors.rejectValue("userName", "memberVO.userName.has");
+		}
+		
+		//회워가입하러 올때 admin, adminstrator 로 가입하려는 거 막기
+		if(memberVO.getUserName().equals("admin")||memberVO.getUserName().equals("adminstrator")) {
+			errors.rejectValue("userName", "memberVO.userName.nope");
+		}
+		
 		
 		return result;
 	}
