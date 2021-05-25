@@ -50,11 +50,6 @@ public class MemberVO implements UserDetails{//memberVO는 userDetailes 타입�
 		return authorities;
 	}
 
-	@Override
-	public String getUsername() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public boolean isAccountNonExpired() {

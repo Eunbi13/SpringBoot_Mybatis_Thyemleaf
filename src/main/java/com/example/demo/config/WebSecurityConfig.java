@@ -1,14 +1,26 @@
 package com.example.demo.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
+	
+	//암호화용
+	@Bean
+	public PasswordEncoder passwordEncoder()throws Exception{
+		
+		return new BCryptPasswordEncoder();
+	}
+	
+	
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
@@ -45,6 +57,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 			//개발자가 작성한 로그인 페이지를 따로 만들지 않아도 기본 내장된 폼으로 이동을 함
 			//만약 만들어둔 페이지가 있어서 따로 쓰려면 아래와 같이 입력
 				.loginPage("/member/login")
+				.defaultSuccessUrl("/member/memberLoginResult")//성공하면 갈곳 
+				//이게 무슨 의미냐면 로그인 성공했을 때의 경우를 개발자가 지정하는 것이 아니라 스프링이 알아서 해준다
 				.permitAll()
 			.and()
 //			.logout()

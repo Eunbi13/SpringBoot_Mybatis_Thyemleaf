@@ -39,7 +39,8 @@ public class MemberController {
 		System.out.println(file.getName());
 		System.out.println(file.getOriginalFilename());
 		
-		service.setJoin(memberVO, file);
+		Long result = service.setJoin(memberVO, file);
+		System.out.println(result);
 		return "redirect:../";
 	}
 	
@@ -47,18 +48,24 @@ public class MemberController {
 	public String getLogin()throws Exception{
 		return "member/memberLogin";
 	}
-	
-	@PostMapping("login")
-	public String getLogin(MemberVO memberVO, HttpSession session)throws Exception{
-		
-		
-		
-		memberVO = service.getLogin(memberVO);
-		session.setAttribute("member", memberVO);
-		
-		
-		return "redirect:/";
+	@GetMapping("memberLoginResult")
+	public String memberLoginResult()throws Exception{
+		//로그인 성공했을 경우 시큐리티에서 이 주소로 보내준다 그리고 그걸 컨트롤러에서 받아서 홈으로 돌아감
+		System.out.println("로그인 성공");
+		return "/";
 	}
+	
+//	@PostMapping("login")
+//	public String getLogin(MemberVO memberVO, HttpSession session)throws Exception{
+//		
+//		
+//		
+//		memberVO = service.getLogin(memberVO);
+//		session.setAttribute("member", memberVO);
+//		
+//		
+//		return "redirect:/";
+//	}
 	
 	@GetMapping("page")
 	public String getMyPage() throws Exception{

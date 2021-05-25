@@ -18,9 +18,9 @@ public class MemberMapperTest {
 	//@Test
 	void test() throws Exception {
 		MemberVO memberVO = new MemberVO();
-		memberVO.setUsername("id2");
-		memberVO.setPassword("id2");
-		memberVO.setName("id2");
+		memberVO.setUsername("id3");
+		memberVO.setPassword("id3");
+		memberVO.setName("id3");
 		memberVO.setPhone("01033333333");
 		memberVO.setEmail("id2@id2");
 		memberVO.setEnabled(true);
@@ -32,7 +32,7 @@ public class MemberMapperTest {
 	//@Test
 	void setMemberRoleTest() throws Exception{
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("userName", "id2");
+		map.put("username", "id2");
 		map.put("roleName", "MEMBER");
 	int result=	mapper.setMemberRole(map);
 	assertEquals(1, result);
