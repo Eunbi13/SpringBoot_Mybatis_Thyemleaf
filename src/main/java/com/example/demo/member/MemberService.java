@@ -22,12 +22,13 @@ public class MemberService implements UserDetailsService{
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
+	//로그인 메서드
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		MemberVO memberVO = new MemberVO();
 		memberVO.setUsername(username);
-		mapper.getLogin(memberVO);
-		return null;
+		memberVO = mapper.getLogin(memberVO);
+		return memberVO;
 	}
 
 	//검증 메서드
@@ -47,7 +48,7 @@ public class MemberService implements UserDetailsService{
 							  //form path||field	properties에 적은 키
 			result=true;//에러 발생하면 트루
 		}
-		
+		//userName 중복 여부
 		if(mapper.checkUserName(memberVO)>0) {
 			errors.rejectValue("userName", "memberVO.userName.has");
 		}
@@ -61,19 +62,17 @@ public class MemberService implements UserDetailsService{
 		return result;
 	}
 	
-	@Transactional(rollbackFor = Exception.class)
 	public Long setJoin(MemberVO memberVO, MultipartFile file) throws Exception{
 		//0. 사전작업
 		//a. password 암호화
 		memberVO.setPassword(passwordEncoder.encode(memberVO.getPassword()));
-		//b. 사용자 활성화
+		//b. 사용자 계정 활성화
 		memberVO.setEnabled(true);
 		
-		//1.저장
+		//1.멤버 테이블 저장
 		Long result = mapper.setJoin(memberVO);
-		if(result<1) {
-			throw new Exception();
-		}
+		
+		//2.HDD에 저장
 		if(file.getSize() !=0) {//size로 하면 되는구나
 			FileManager fileManager = new FileManager();
 			String path = "upload/member/";
@@ -86,9 +85,9 @@ public class MemberService implements UserDetailsService{
 		}
 		return result;
 	}
-	public MemberVO getLogin(MemberVO memberVO)throws Exception{
-		return mapper.getLogin(memberVO);
-	}
+//	public MemberVO getLogin(MemberVO memberVO)throws Exception{
+//		return mapper.getLogin(memberVO);
+//	}
 	
 	
 
