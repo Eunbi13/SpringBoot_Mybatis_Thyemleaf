@@ -22,7 +22,9 @@ public class MemberService implements UserDetailsService{
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		// TODO Auto-generated method stub
+		MemberVO memberVO = new MemberVO();
+		memberVO.setUsername(username);
+		mapper.getLogin(memberVO);
 		return null;
 	}
 

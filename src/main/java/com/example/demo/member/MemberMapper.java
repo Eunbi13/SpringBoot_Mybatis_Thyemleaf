@@ -10,5 +10,5 @@ public interface MemberMapper {
 	public int setMemberRole(Map<String, String> map)throws Exception;
 	public Long checkUserName(MemberVO memberVO)throws Exception;
 	public Long setMemberFile(MemberFileVO memberFileVO)throws Exception;
-	public MemberVO getLogin(MemberVO memberVO) throws Exception;
+	public MemberVO getLogin(MemberVO memberVO);
 }
