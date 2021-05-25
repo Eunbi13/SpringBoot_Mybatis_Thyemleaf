@@ -78,7 +78,7 @@ public class NoticeController {
 		MemberVO memberVO=null;
 		if(obj instanceof MemberVO) {//!=null
 			memberVO = (MemberVO)obj;
-			if(memberVO.getUserName().equals("admin")) {
+			if(memberVO.getUsername().equals("admin")) {
 				path = "board/form";
 			}
 		}

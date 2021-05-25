@@ -1,6 +1,9 @@
 package com.example.demo.member;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
@@ -9,11 +12,20 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.demo.util.FileManager;
 
 @Service
-public class MemberService {
+//spring security에서 사용하는 service
+//UserDetailsService
+public class MemberService implements UserDetailsService{
 	
 	@Autowired
 	private MemberMapper mapper;
 	
+	
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	//검증 메서드
 	public boolean memberError(MemberVO memberVO, Errors errors)throws Exception{
 		boolean result=false;
@@ -37,7 +49,7 @@ public class MemberService {
 		}
 		
 		//회워가입하러 올때 admin, adminstrator 로 가입하려는 거 막기
-		if(memberVO.getUserName().equals("admin")||memberVO.getUserName().equals("adminstrator")) {
+		if(memberVO.getUsername().equals("admin")||memberVO.getUsername().equals("adminstrator")) {
 			errors.rejectValue("userName", "memberVO.userName.nope");
 		}
 		
@@ -57,7 +69,7 @@ public class MemberService {
 			String path = "upload/member/";
 			String fileName = fileManager.save(file, path);
 			MemberFileVO fileVO = new MemberFileVO();
-			fileVO.setUserName(memberVO.getUserName());
+			fileVO.setUserName(memberVO.getUsername());
 			fileVO.setFileName(fileName);
 			fileVO.setOriName(file.getOriginalFilename());
 			mapper.setMemberFile(fileVO);

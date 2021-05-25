@@ -5,34 +5,42 @@
 
     <mapper namespace="com.example.demo.member.MemberMapper">
     	<insert id="setJoin" parameterType="MemberVO">
-    		INSERT INTO member VALUES(#{userName}, #{password}, #{name}, #{email}, #{phone})
+    		INSERT INTO member 
+    		VALUES(#{username}, #{password}, #{name}, #{email}, #{phone}, #{enabled})
+    	</insert>
+    	
+    	<insert id="setMemberRole" parameterType="java.util.Map">
+    		insert into member_role (username, id) 
+    		values (#{username}, (select id from role where roleName=#{roleName}))
     	</insert>
     	
     	<select id="checkUserName" parameterType="MemberVO" resultType="java.lang.Long">
-    		select count(userName) from member where userName = #{userName}
+    		select count(username) from member where username = #{username}
     	</select>
     	
     	<insert id="setMemberFile" parameterType="MemberFileVO">
-    		INSERT INTO memberfile VALUES(NULL,#{userName},#{fileName},#{oriName})
+    		INSERT INTO memberfile VALUES(NULL,#{username},#{fileName},#{oriName})
     	</insert>
     	<select id="getLogin" parameterType="MemberVO" resultMap="Result">
-    		SELECT M.*, MF.* 
-    		FROM member M LEFT JOIN memberFile MF 
-    		ON M.userName=MF.userName WHERE M.userName=#{userName} AND M.PASSWORD=#{password}
+    		SELECT M.*, R.* 
+			FROM member M LEFT JOIN member_role MR
+			ON M.username=MR.username
+			INNER JOIN role R
+			ON MR.id = R.id
+			WHERE M.username=#{username}
     	</select>
-    	
+    	<!-- 스프링 시큐리티에서 비번 일치하는 지 확인 할 것이다 근데 결과값이 여러개 나온다 -->
     	<resultMap type="MemberVO" id="Result">
-    		<id column="userName" property="userName"/>
-    		<result column="password" property="password"/>
-    		<result column="name" property="name"/>
-    		<result column="email" property="email"/>
-    		<result column="phone" property="phone"/>
-    		<association property="memberFileVO" javaType="MemberFileVO">
-	    		<id property="fileNum" column="fileNum"/>
-	    		 <result property="userName" column="userName"/>
-	    		<result property="fileName" column="fileName"/>
-	    		<result property="origineName" column="origineName"/>
-    		</association>
+    		<id column="username" property="username"/>
+			<result column="password" property="password"/>
+			<result column="name" property="name"/>
+			<result column="email" property="email"/>
+			<result column="phone" property="phone"/>
+			<result column="enabled" property="enabled"/>
+			<collection property="roles" javaType="java.util.List" ofType="RoleVO">
+				<id column="id" property="id"/>
+				<result column="roleName" property="roleName"/>
+			</collection>
     	</resultMap>
     
     </mapper>
