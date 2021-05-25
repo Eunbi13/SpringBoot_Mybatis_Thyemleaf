@@ -49,13 +49,13 @@ public class MemberService implements UserDetailsService{
 			result=true;//에러 발생하면 트루
 		}
 		//userName 중복 여부
-		if(mapper.checkUserName(memberVO)>0) {
-			errors.rejectValue("userName", "memberVO.userName.has");
+		if(mapper.checkUsername(memberVO)>0) {
+			errors.rejectValue("username", "memberVO.userName.has");
 		}
 		
 		//회워가입하러 올때 admin, adminstrator 로 가입하려는 거 막기
 		if(memberVO.getUsername().equals("admin")||memberVO.getUsername().equals("adminstrator")) {
-			errors.rejectValue("userName", "memberVO.userName.nope");
+			errors.rejectValue("username", "memberVO.userName.nope");
 		}
 		
 		

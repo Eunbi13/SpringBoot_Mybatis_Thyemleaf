@@ -14,7 +14,7 @@
     		values (#{username}, (select id from role where roleName=#{roleName}))
     	</insert>
     	
-    	<select id="checkusername" parameterType="MemberVO" resultType="java.lang.Long">
+    	<select id="checkUsername" parameterType="MemberVO" resultType="java.lang.Long">
     		select count(username) from member where username = #{username}
     	</select>
     	

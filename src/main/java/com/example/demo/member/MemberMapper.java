@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 public interface MemberMapper {
 	public Long setJoin(MemberVO memberVO)throws Exception;
 	public int setMemberRole(Map<String, String> map)throws Exception;
-	public Long checkUserName(MemberVO memberVO)throws Exception;
+	public Long checkUsername(MemberVO memberVO)throws Exception;
 	public Long setMemberFile(MemberFileVO memberFileVO)throws Exception;
 	public MemberVO getLogin(MemberVO memberVO);
 }
