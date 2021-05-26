@@ -38,6 +38,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		// 세부설정(url에 따른 로그인 유무, 권한 유무)
 		http
+			//권한 에러 발생시(403)
+			.exceptionHandling()
+				.accessDeniedPage("")//errorPage 경로 //자동
+				.accessDeniedHandler(null)//에러 처리하는 클래스 선언 //수동
+				
+			.and()	
 			.cors().and()
 			.csrf().disable()
 			.authorizeRequests()
@@ -57,10 +63,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 				.loginPage("/member/login")
 				.defaultSuccessUrl("/member/memberLoginResult")//성공하면 갈곳 
 				//이게 무슨 의미냐면 로그인 성공했을 때의 경우를 개발자가 지정하는 것이 아니라 
-				//스프링이 알아서 해주는데 컨트롤러에 만들어둠
+				//스프링이 알아서 해주는데 컨트롤러에 처리용 메서드 만들어둠
+				.failureUrl("/member/loginFail")//로그인 실패시
 				.permitAll()
-//			.and()
-//			.logout()
+			.and()
+			.logout()
+				.logoutUrl("/member/logout")
+				.logoutSuccessUrl("/")
+				.invalidateHttpSession(true)
+				.deleteCookies("JSESSIONID")
+				.permitAll()
 			;
 		
 		//작성자 아이디와 로그인 아이디가 같은지에 대한건 인터셉터에서 적용하는 것

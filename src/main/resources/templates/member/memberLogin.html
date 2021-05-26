@@ -9,6 +9,11 @@
 	<div th:replace="/fragments/default::jumbo"></div>	
 	<div class="container">
   		<h1>MemberLogin Page</h1>
+  		<!-- Error Message 기본 내장 되어있는거 -->
+  		<h3 th:if="${param.error}" >loginFail</h3>
+  		<!-- F12=> login?error 라는 주소를 시큐리티가 자동으로 생성
+  			단, 실패시 처리되는 코드가 잇으면 안됨 그래서 걍 컨트롤러에서 하는게 나음 
+  			그냥 디폴트로 써도 되고 ㅎ -->
   	
   		<form action="./login"  method="post">
 			<div class="form-group">
