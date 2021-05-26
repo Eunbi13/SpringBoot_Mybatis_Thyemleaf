@@ -14,7 +14,7 @@
 	<div class="container">
 		<h1>MemberJoin Page "Thymeleaf"</h1>
 	<!-- FORM -->
-		<form th:action="@{join}" method="post" th:object="${memberVO}" enctype="multipart/form-data">
+		<form th:action="@{./join}" method="post" th:object="${memberVO}" enctype="multipart/form-data">
 		  <div class="form-group">
 		    <label for="exampleInputPassword1">username</label>
 		    <input type="text" class="form-control" th:field="*{username}">

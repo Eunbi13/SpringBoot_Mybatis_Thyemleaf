@@ -25,7 +25,7 @@ public class MemberService implements UserDetailsService{
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
-	//로그인 메서드 개발자가 호출x
+	//로그인 메서드 개발자가 호출x(get Login)
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		MemberVO memberVO = new MemberVO();
@@ -53,7 +53,7 @@ public class MemberService implements UserDetailsService{
 		}
 		//userName 중복 여부
 		if(mapper.checkUsername(memberVO)>0) {
-			errors.rejectValue("username", "memberVO.userName.has");
+			errors.rejectValue("userName", "memberVO.userName.has");
 		}
 		
 		//회워가입하러 올때 admin, adminstrator 로 가입하려는 거 막기
@@ -78,25 +78,21 @@ public class MemberService implements UserDetailsService{
 		//1-2 role table에 저장
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("username", memberVO.getUsername());
-		map.put("rolename", "ROLE_MEMBER");
+		map.put("roleName", "ROLE_MEMBER");
 		result = mapper.setMemberRole(map);
 		
 		//2.HDD에 저장
-		if(file.getSize() !=0) {//size로 하면 되는구나
-			FileManager fileManager = new FileManager();
-			String path = "upload/member/";
-			String fileName = fileManager.save(file, path);
-			MemberFileVO fileVO = new MemberFileVO();
-			fileVO.setUserName(memberVO.getUsername());
-			fileVO.setFileName(fileName);
-			fileVO.setOriName(file.getOriginalFilename());
-			mapper.setMemberFile(fileVO);
-		}
+		/*
+		 * if(file.getSize() !=0) { FileManager fileManager = new FileManager(); String
+		 * path = "upload/member/"; String fileName = fileManager.save(file, path);
+		 * MemberFileVO fileVO = new MemberFileVO();
+		 * fileVO.setUserName(memberVO.getUsername()); fileVO.setFileName(fileName);
+		 * fileVO.setOriName(file.getOriginalFilename()); mapper.setMemberFile(fileVO);
+		 * }
+		 */
 		return result;
 	}
-//	public MemberVO getLogin(MemberVO memberVO)throws Exception{
-//		return mapper.getLogin(memberVO);
-//	}
+
 	
 	
 

@@ -15,8 +15,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	//암호화용
 	@Bean
-	public PasswordEncoder passwordEncoder()throws Exception{
-		
+	public PasswordEncoder passwordEncoder(){
 		return new BCryptPasswordEncoder();
 	}
 	
@@ -43,16 +42,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 			.csrf().disable()
 			.authorizeRequests()
 				.antMatchers("/").permitAll()
-				.antMatchers("/member/join").permitAll()
-				.antMatchers("/member/delete").hasRole("MEMBER")
-				.antMatchers("/member/**").hasAnyRole("ADMIN","MEMBER")
 				.antMatchers("/notice/list", "/notice/select").permitAll()
 				.antMatchers("/notice/**").hasRole("ADMIN")
-				.antMatchers("/qna/list", "/qna/select").permitAll()
+				.antMatchers("/qna/list").permitAll()
 				.antMatchers("/qna/**").hasAnyRole("ADMIN","MEMBER")
+				.antMatchers("/member/join").permitAll()
+				.antMatchers("/member/**").hasAnyRole("ADMIN","MEMBER")
 				.anyRequest().authenticated()
 			.and()
-			//and()쓰기 싫으면 그냥 http.formLogin()이렇게 가도 된다 그냥 문단이라고 보기 "메서드 체이닝"
+			//and()쓰기 싫으면 그냥 http.formLogin()이렇게 가도 된다 그냥 문단이라고 보기 //메서드 체이닝
 			.formLogin()
 			//개발자가 작성한 로그인 페이지를 따로 만들지 않아도 기본 내장된 폼으로 이동을 함
 			//만약 만들어둔 페이지가 있어서 따로 쓰려면 아래와 같이 입력
@@ -61,7 +59,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 				//이게 무슨 의미냐면 로그인 성공했을 때의 경우를 개발자가 지정하는 것이 아니라 
 				//스프링이 알아서 해주는데 컨트롤러에 만들어둠
 				.permitAll()
-			.and()
+//			.and()
 //			.logout()
 			;
 		

@@ -69,8 +69,10 @@ public class MemberVO implements UserDetails{//memberVO는 userDetailes 타입�
 		return true;
 	}
 	
-	//isEnabled도 잇는 데 없어도 롬복가지고 하는거라 ㄱㅊ
-	
+	//isEnabled
+	public boolean isEnabled() {
+		return this.enabled;
+	}
 	
 	
 	
