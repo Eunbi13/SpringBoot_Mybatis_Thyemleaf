@@ -1,5 +1,8 @@
 package com.example.demo.member;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -22,7 +25,7 @@ public class MemberService implements UserDetailsService{
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
-	//로그인 메서드
+	//로그인 메서드 개발자가 호출x
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		MemberVO memberVO = new MemberVO();
@@ -61,7 +64,7 @@ public class MemberService implements UserDetailsService{
 		
 		return result;
 	}
-	
+	@Transactional(rollbackFor = Exception.class)
 	public Long setJoin(MemberVO memberVO, MultipartFile file) throws Exception{
 		//0. 사전작업
 		//a. password 암호화
@@ -71,6 +74,12 @@ public class MemberService implements UserDetailsService{
 		
 		//1.멤버 테이블 저장
 		Long result = mapper.setJoin(memberVO);
+		
+		//1-2 role table에 저장
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("username", memberVO.getUsername());
+		map.put("rolename", "ROLE_MEMBER");
+		result = mapper.setMemberRole(map);
 		
 		//2.HDD에 저장
 		if(file.getSize() !=0) {//size로 하면 되는구나

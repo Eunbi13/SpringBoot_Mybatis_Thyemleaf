@@ -58,7 +58,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 			//만약 만들어둔 페이지가 있어서 따로 쓰려면 아래와 같이 입력
 				.loginPage("/member/login")
 				.defaultSuccessUrl("/member/memberLoginResult")//성공하면 갈곳 
-				//이게 무슨 의미냐면 로그인 성공했을 때의 경우를 개발자가 지정하는 것이 아니라 스프링이 알아서 해준다
+				//이게 무슨 의미냐면 로그인 성공했을 때의 경우를 개발자가 지정하는 것이 아니라 
+				//스프링이 알아서 해주는데 컨트롤러에 만들어둠
 				.permitAll()
 			.and()
 //			.logout()

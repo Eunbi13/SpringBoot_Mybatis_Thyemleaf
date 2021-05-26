@@ -34,7 +34,7 @@ public class MemberMapperTest {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("username", "id2");
 		map.put("roleName", "MEMBER");
-	int result=	mapper.setMemberRole(map);
+	Long result=	mapper.setMemberRole(map);
 	assertEquals(1, result);
 	}
 	

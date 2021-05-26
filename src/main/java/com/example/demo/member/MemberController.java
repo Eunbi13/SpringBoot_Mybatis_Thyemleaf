@@ -48,6 +48,7 @@ public class MemberController {
 	@GetMapping("memberLoginResult")
 	public String memberLoginResult()throws Exception{
 		//로그인 성공했을 경우 시큐리티에서 이 주소로 보내준다 그리고 그걸 컨트롤러에서 받아서 홈으로 돌아감
+		//로그인 성ㄱ공했을 때 실행되는 메서드
 		System.out.println("로그인 성공");
 		return "redirect:../";
 	}
