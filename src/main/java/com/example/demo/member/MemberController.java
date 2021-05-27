@@ -26,6 +26,11 @@ public class MemberController {
 	@Autowired
 	private MemberService service;
 	
+	@GetMapping("error")
+	public String errer() {
+		return "error/error";
+	}
+	
 	@GetMapping("join")
 	public String setJoin(@ModelAttribute MemberVO memberVO)throws Exception{
 		return "member/memberJoin";

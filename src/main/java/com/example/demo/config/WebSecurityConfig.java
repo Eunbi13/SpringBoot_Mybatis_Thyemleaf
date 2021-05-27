@@ -9,6 +9,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.example.demo.security.SecurityException;
+
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
@@ -39,11 +41,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		// 세부설정(url에 따른 로그인 유무, 권한 유무)
 		http
 			//권한 에러 발생시(403)
+			//사용하지 않으면 기본 제공 에러 처리 방법 사용 
+				//error-handling 브런치 참고(templates/error/)
 			.exceptionHandling()
-				.accessDeniedPage("")//errorPage 경로 //자동
-				.accessDeniedHandler(null)//에러 처리하는 클래스 선언 //수동
-				
-			.and()	
+			//1.errorPage 경로 url //자동
+			//	.accessDeniedPage("/member/error")//redirect controller에 받는 메서드 필요 
+			//2.에러 처리하는 클래스 선언 //수동 //세밀하게 조정 가능
+				.accessDeniedHandler(new SecurityException())//securityException객체 만들기
+				.and()	
 			.cors().and()
 			.csrf().disable()
 			.authorizeRequests()
@@ -55,7 +60,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 				.antMatchers("/member/join").permitAll()
 				.antMatchers("/member/**").hasAnyRole("ADMIN","MEMBER")
 				.anyRequest().authenticated()
-			.and()
+				.and()
 			//and()쓰기 싫으면 그냥 http.formLogin()이렇게 가도 된다 그냥 문단이라고 보기 //메서드 체이닝
 			.formLogin()
 			//개발자가 작성한 로그인 페이지를 따로 만들지 않아도 기본 내장된 폼으로 이동을 함
@@ -64,9 +69,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 				.defaultSuccessUrl("/member/memberLoginResult")//성공하면 갈곳 
 				//이게 무슨 의미냐면 로그인 성공했을 때의 경우를 개발자가 지정하는 것이 아니라 
 				//스프링이 알아서 해주는데 컨트롤러에 처리용 메서드 만들어둠
-				.failureUrl("/member/loginFail")//로그인 실패시
+			//	.failureUrl("/member/loginFail")//로그인 실패시
+			//	.failureHandler(null)//클래스 만들어서 하는 세밀한 작업
+				//핸들러를 사용하면 왜 문제가 생겼는지 알수 있도록 조정할 수 있다. 
 				.permitAll()
-			.and()
+				.and()
 			.logout()
 				.logoutUrl("/member/logout")
 				.logoutSuccessUrl("/")
